@@ -65,7 +65,6 @@ var oauth = (function() {
             loginWindow.addEventListener('loadstart', loginWindowLoadHandler);
             loginWindow.addEventListener('exit', loginWindowExitHandler);
         }
-
     };
 
     var logout = function(callback) {

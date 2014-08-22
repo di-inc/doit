@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "angular-velocity": "~0.1.1",
-    "velocity": "~0.11.2"
+    "velocity": "~0.11.2",
+    "angular-busy": "~4.1.0"
   }
 }
