@@ -225,7 +225,7 @@ angular.module('doit.services', ['ionic'])
       img:'http://www.personalluxuryresortsandhotels.com/i/SITE_120910_12161610_5R1BV/content/CMS_121005_16245907_J2FB7/7F45873D-188B-3B72-2E7EA991C83EDA3E.JPG',
       where: 'San Francisco',
       description:{
-        time: '10am',
+        date: '12pm-3pm August 22nd',
         location: 'Baker Beach',
         describe: 'Take a trip to Baker Beach and enjoy the sun and waves!',
       }
@@ -235,15 +235,15 @@ angular.module('doit.services', ['ionic'])
       img: 'http://www.adventurestateparks.com/!images/rotator/asp_adventure_mp_mainimage_01b.jpg',
       where: 'San Francisco',
       description: {
-        time: '12pm',
+        date: '11am-2pm August 18th',
         location: 'The Bay',
         describe: 'Kayaking in the bay is easy! Go to Joes Crab Shack, rent a couple of boats and get your Kayak on!',
       },
     },
-    {title: 'Hiking', img:'http://www.real-adventure.co.uk/uploads/site/144/real_adventure_091__large.jpg', where: 'San Francisco',  description: {
-        time: '12pm',
-        location: 'The Bay',
-        describe: 'Hiking in the bay is easy! Go to Joes Crab Shack, rent a couple of boots and get your Kayak on!',
+    {title: 'B.B. King Concert', img:'http://www2.sk-static.com/images/media/profile_images/artists/14318/col2', where: 'San Francisco',  description: {
+        date: '9pm-12am August 14th',
+        location: 'Downtown SF',
+        describe: 'B.B Kings first concert in over 3 years. Join the fun!',
       }},
 
   ];

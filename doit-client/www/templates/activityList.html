@@ -1,22 +1,25 @@
-<ion-view title="Activities">
+<ion-view title="Activity">
+  <ion-content>
+    <div>
+      <div class="item item-avatar">
+        <img src="{{activity.img}}">
+        <h2>{{activity.title}}</h2>
+        <p>{{activity.description.date}}</p>
+      </div>
 
-  <ion-nav-buttons side='left'>
-    <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="goToDash()"></a>
-  </ion-nav-buttons>
-
-  <ion-content ng-style="{'background': '#be605b'}">
-
-      <swipe-cards>
-      <swipe-card ng-repeat="todos in toDo" ng-style="{'z-index': potentialMatches.length - 1 - $index, 'top': '0px', 'left': '0px', 'position': 'absolute'}" ui-sref="served-events({id: $index})">
-        <div class='item item-image swipe-card' ng-style="{'border':'2px solid black'}">
-          <div class="image">
-          <img ng-src={{todos.img}} ng-style="{'max-height': '100%', 'width': 'auto'}" alt="">
-          <h2 class="todosTitle"><span>{{todos.title}}</span></h2>
-        </div> 
-      </swipe-card>>
-     
-    </swipe-cards>
-     </div ng-repeat-end>
-
+      <div class="item item-body">
+        <img class="full-image" src="{{activity.img}}">
+        <p>
+          {{activity.description.describe}}
+        </p>
+        <p>
+        <h2><a ng-click="openModal()">Friends Attending</a></h2>
+        </p>
+      </div>
+    </div>  
+  </div>
+    <button nav-clear class="button button-full button loginFacebook" ng-click="login()">
+          DO IT
+    </button>
   </ion-content>
-</ion-view> 
+</ion-view>

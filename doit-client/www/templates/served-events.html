@@ -1,12 +1,12 @@
 <ion-view title="DoEm">
 
   <ion-nav-buttons side='left'>
-    <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="goToDash()"></a>
+    <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="activityList()"></a>
   </ion-nav-buttons>
 
   <ion-content ng-style="{'background': '#be605b'}">
      <div class="list">
-      <div class="velocity-transition-slideUpIn" data-velocity-opts="{stagger: 100}" href="#" ng-repeat='todos in toDo' ng-click="openModal($index)">
+      <div class="velocity-transition-slideUpIn" data-velocity-opts="{stagger: 100}" href="#" ng-repeat='todos in toDo' ui-sref="activitylist({id: $index})">
         <a class="item item-avatar">  
         <img src={{todos.img}} ng-style="{'height': '100%'}">
         <h2>{{todos.title}}</h2>

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('doit', ['ionic', 'doit.controllers', 'doit.services', 'ionic.contrib.ui.cards', 'ionic.rating', 'angular-velocity', 'ngAnimate', 'google-maps'])
+angular.module('doit', ['ionic', 'doit.controllers', 'doit.services', 'ionic.contrib.ui.cards', 'ionic.rating', 'angular-velocity', 'ngAnimate'])
 
 .run(function($ionicPlatform, ToDoLoader, $rootScope, serverRequest, $http) {
   $ionicPlatform.ready(function() {
@@ -66,7 +66,7 @@ angular.module('doit', ['ionic', 'doit.controllers', 'doit.services', 'ionic.con
     })
 
     .state('served-events', {
-      url: '/served-events/:id',
+      url: '/served-events',
       templateUrl: 'templates/served-events.html',
       controller: 'ServedCtrl',
     })
@@ -84,7 +84,7 @@ angular.module('doit', ['ionic', 'doit.controllers', 'doit.services', 'ionic.con
     })
 
     .state('activitylist', {
-      url: '/activitylist',
+      url: '/activitylist/:id',
       templateUrl: 'templates/activityList.html',
       controller: 'ActivityListCtrl'
     })

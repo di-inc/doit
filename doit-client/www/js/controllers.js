@@ -11,9 +11,7 @@ angular.module('doit.controllers', [])
 
   $scope.sendToDo = function(){
     ToDoLoader.events();
-    setTimeout(function(){
-    $state.go('activitylist');
-    }, 1000);
+    $state.go('served-events');
   };
 })
 
@@ -41,6 +39,7 @@ angular.module('doit.controllers', [])
     name: 'Albrey Brown',
     location: 'SF',
     personality: 'Adventurous',
+    img:'https://yy1.staticflickr.com/179/404202272_e124e56ad3_z.jpg'
   };
 
   $scope.myEvents = RecentEvents.events;
@@ -56,86 +55,44 @@ angular.module('doit.controllers', [])
   $scope.toDo = MyEvents.events['chill']['jazz']['events'];
   $scope.recentEvents = RecentEvents.events;
   $scope.events = ToDoLoader.getToDoSpec();
-  $scope.goToDash = function(){
-    $state.go('activitylist');
-  };
-  $ionicModal.fromTemplateUrl('../templates/modal.html', {
-      
-        animation: 'slide-in-up',
-        scope: $scope,
-
-  }).then(function(modal){
-    $scope.modal = modal;
-    
-    $scope.createEvent = function(){
-      serverRequest.post('user/addActivity', {
-      userID: 1,
-      tokenID: 2,
-      activityID: 3,
-      startDateTime: new Date(),
-      duration: 4,
-      placeID: null,
-      })
-      .success(function(data, status){
-        console.log('activity has been added');
-        $state.go('tab.profile');
-      });
-
-
-      $scope.modal.hide();
-    };
-  });
-
-  $scope.openModal = function(index){
-    $scope.event = $scope.toDo[index];
-    $scope.modal.show();
-  };
-})
-
-
-.controller('ActivityListCtrl', function($scope, $state, ToDoLoader, $ionicModal, RecentEvents, MyEvents){
-  $scope.toDo = MyEvents.events['chill'];
-  $scope.recentEvents = RecentEvents.events;
-  $scope.events = ToDoLoader.getToDoSpec();
-  $scope.goToDash = function(){
+  $scope.activityList = function(){
     $state.go('tab.dash');
   };
-
-  // $ionicModal.fromTemplateUrl('../templates/modal.html', {
-      
-  //       animation: 'slide-in-up',
-  //       scope: $scope,
-
-  // }).then(function(modal){
-  //   $scope.modal = modal;
-    
-  //   $scope.createEvent = function(){
-  //     serverRequest.post('user/addActivity', {
-  //     userID: 1,
-  //     tokenID: 2,
-  //     activityID: 3,
-  //     startDateTime: new Date(),
-  //     duration: 4,
-  //     placeID: null,
-  //     })
-  //     .success(function(data, status){
-  //       console.log('activity has been added');
-  //       $state.go('tab.profile');
-  //     });
-
-
-  //     $scope.modal.hide();
-  //   };
-  // })
 })
 
 
-.controller('ActivitiesCtrl', function($scope, $stateParams, $state, ToDoLoader, RecentEvents){
+.controller('ActivityListCtrl', function($scope, $state, ToDoLoader, $ionicModal, RecentEvents, MyEvents, $stateParams){
+  $scope.activity = MyEvents.events['chill']['jazz']['events'][$stateParams.id];
+  $scope.served = function(){
+    console.log($stateParams);
+    $state.go('served-events');
+  };
+})
+
+
+.controller('ActivitiesCtrl', function($scope, $stateParams, $state, ToDoLoader, RecentEvents, $ionicModal){
   $scope.max = 5;
    $scope.profile = function(){
     $state.go('tab.profile');
   };
   $scope.activity = RecentEvents.events[$stateParams.id];
+
+  $ionicModal.fromTemplateUrl('../templates/modal.html', {
+      
+    animation: 'slide-in-up',
+    scope: $scope,
+
+  }).then(function(modal){
+    $scope.modal = modal;
+    
+    $scope.createEvent = function(){
+      $scope.modal.hide();
+    };
+  });
+
+  $scope.openModal = function(){
+    $scope.modal.show();
+  };
 })
 
 

@@ -1,30 +1,31 @@
 <ion-view title="Activity">
   <ion-nav-buttons side='left'>
     <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="profile()"></a>
-    <!-- <div class="list card"> -->
-<!-- 
-  <div class="item item-avatar">
-    <img src="{{activity.img}}">
-    <p>Date and Time Done</p>
-  </div> -->
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="list card velocity-transition-bounceRightIn">
+    <div>
+      <div class="item item-avatar">
+        <img src="{{activity.img}}">
+        <h2>{{activity.title}}</h2>
+        <p>{{activity.description.date}}</p>
+      </div>
 
-  <div class="item item-body" ng-style="{'background': '#643551'}">
-    <h2 ng-style="{'color': 'white'}">{{activity.title}}</h2>
-    <img class="full-image" src="{{activity.img}}" 
-    ng-style="{'border-radius': '100px', 'height': '200px', 'width': '200px', 'margin-left': '40px'}"> 
+      <div class="item item-body">
+        <img class="full-image" src="{{activity.img}}">
+        <p>
+          {{activity.description.describe}}
+        </p>
+        <p>
+        <a class="subdued">4.5 average rating</a>
+        <a ng-click="openModal()" class="subdued">7 Recommendations</a>
+        </p>
+      </div>
 
-    <p ng-style="{'color': 'white'}">
-      This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-      the content is from a card-body consisting of an image and paragraph text. The footer
-      consists of tabs, icons aligned left, within the card-footer.
-    </p>
-  <rating ng-model="rate" max="max" ng-style="{'margin': 'auto'}"></rating>  
+      <div class="item tabs tab-secondary tabs-icon-left">
+      <rating ng-model="rate" max="max"></rating>
+      </div>
+    </div>  
   </div>
-
-  <!-- <div class="item tabs tabs-secondary tabs-icon-left"> -->
-    
-  <!-- </div> -->
-
-</div>
-
+  </ion-content>
 </ion-view>

@@ -1,24 +1,13 @@
 <div class="modal">
         <ion-header-bar class="bar bar-header bar-positive">
           <h1 class="title">Description</h1>
-          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Back</button>
         </ion-header-bar>
         <ion-content>
-          <div class="padding">
-            <div class="list">
-              <div class="card">
-                <div class="item item-text-wrap">
-                  <h2>Event: {{event.title}}</h2>
-                </br>
-                  <h2>Time: {{event.description.time}}</h2>
-                </br>
-                  <h2>Location: {{event.description.location}}<h2>
-                </br>
-                  Description: {{event.description.describe}}
-                </div>
-              </div>
-             <button class="button button-full button-positive" ng-click="createEvent()">Do It!</button>
-            </div>
-          </div>
+        <div class="item item-avatar"> put ng repeat on this
+          <img src="{{activity.img}}">
+          <h2>{{activity.title}}</h2>
+          <p>{{activity.description.date}}</p>
+        </div>
         </ion-content>
 </div>
