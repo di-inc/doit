@@ -1,33 +1,16 @@
 <ion-view title="DoEm">
 
   <ion-nav-buttons side='left'>
-    <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="goToDash()"></a>
+    <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="activityList()"></a>
   </ion-nav-buttons>
 
   <ion-content ng-style="{'background': '#be605b'}">
-
-  <!--     <swipe-cards>
-      <swipe-card ng-repeat="todos in toDo" ng-style="{'z-index': potentialMatches.length - 1 - $index, 'top': '0px', 'left': '0px', 'position': 'absolute'}" ng-click="openModal($index)">
-        <div class='item item-image swipe-card' ng-style="{'border':'2px solid black'}">
-          <div class="image">
-          <img ng-src={{todos.img}} ng-style="{'max-height': '100%', 'width': 'auto'}" alt="">
-          <h2 class="todosTitle"><span>{{todos.title}}</span></h2>
-        </div> 
-      </swipe-card>
-      <div class='likeOrDislike'>
-        <h2>Wassup</h2>
-      </div>
-   -->   
-   <!--  </swipe-cards>
-     <!-- </div ng-repeat-end> -->
-
      <div class="list">
-      <div class="velocity-transition-slideUpIn" data-velocity-opts="{stagger: 100}"
-        href="#" ng-repeat='todos in toDo' ng-click="openModal($index)">
+      <div class="velocity-transition-slideUpIn" data-velocity-opts="{stagger: 100}" href="#" ng-repeat='todos in toDo' ui-sref="activitylist({id: $index})">
         <a class="item item-avatar">  
         <img src={{todos.img}} ng-style="{'height': '100%'}">
         <h2>{{todos.title}}</h2>
-        <span><p ng-style="{'color': 'grey'}">{{todos.where}}</p></span><span ng-style="{'float':'right', 'color': 'grey'}"><p>hey</p></span>
+        <span><p ng-style="{'color': 'grey'}">{{todos.where}}</p></span>
         </a>
       </div>
     </div>

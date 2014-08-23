@@ -10,91 +10,13 @@ angular.module('doit.controllers', [])
   //each opens up a modal with options from scope array
 
   $scope.sendToDo = function(){
-    // new date object to be invoked and called when function is run
-    var typeFormatter = function(toDo){
-      if (toDo === 'adventurous') {
-        return 1;
-      } else if (toDo === 'rocking') {
-        return 2;
-      } else if (toDo === 'intense') {
-        return 3;
-      } else if (toDo === 'chill') {
-        return 4;
-      } else if (toDo === 'fun') {
-        return 5;
-      } else if (toDo === 'classic') {
-        return 6;
-      }
-    };
-    var userTime = function(time){
-      // if (time === )
-      if (time === 'now') {
-        return 0;
-      } else if (time === '30 minutes from now') {
-        return 30;
-      } else if (time === '1 hour from now') {
-        return 60;
-      } else if (time === 'in a few hours') {
-        return 180;
-      } else {
-        return 'not a valid time';
-      }
-    };
-    // change time formatter to server side logic
-    var timeFormatter = function(time) {
-      var date = new Date();
-      var time = date.getTime() + (time * 60000);
-      var updatedDate = new Date(time);
-      return updatedDate;
-    };
-
-    // change durationConverter to server side logic
-    var durationConverter = function(duration) {
-      if (duration === '5 minutes') {
-        return 1;
-      } else if (duration === '15 minutes') {
-        return 2;
-      } else if (duration === '30 minutes') {
-        return 3;
-      } else if (duration === '1 hour') {
-        return 4;
-      } else if (duration === '1 - 3 hours') {
-        return 5;
-      } else if (duration === 'all day') {
-        return 6;
-      } else {
-        return 'not a valid duration';
-      }
-    };
-
-    var date = timeFormatter(userTime($scope.toDo['time']));
-    var type = typeFormatter($scope.toDo['type']);
-    console.log($scope.toDo);
-    console.log(date);
-
-    serverRequest.post('user/getNewActivities', {
-      userID: 1,
-      locationID: 2,
-      dateTimeToDo: date,
-      typeID: type,
-      duration: durationConverter($scope.toDo['duration'])
-    }).success(function(data, status){
-      // console.log('data');
-      $rootScope.events = data;
-      console.log($rootScope.events);
-      // $state.go('served-events');
-
-    })
+    ToDoLoader.events();
+    $state.go('served-events');
   };
-
-  $scope.served = function(){
-  };
-
-    //send the object to appropriate factory and switch the page...
 })
 
 
-.controller('EventsCtrl', function($scope, $state, ToDoLoader) {
+.controller('EventsCtrl', function($scope, $state, ToDoLoader, $http) {
   $scope.toDo = ToDoLoader.events;
   $scope.profile = function(){
     $state.go('tab.profile');
@@ -102,10 +24,12 @@ angular.module('doit.controllers', [])
 })
 
 
-.controller('LoginCtrl', function($scope, $state){
+.controller('LoginCtrl', function($scope, $state, $http){
   $scope.login = function(){
     oauth.login();
+    setTimeout(function(){ 
     $state.go('tab.profile');
+    }, 10000)
   };
 
 })
@@ -114,12 +38,13 @@ angular.module('doit.controllers', [])
   $scope.rate = 0;
   $scope.max = 5;
   $scope.user = {
-    name: 'Doug Calhoun',
-    location: 'San Francisco',
-    personality: 'Chill',
+    name: 'Albrey Brown',
+    location: 'SF',
+    personality: 'Adventurous',
+    img:'https://yy1.staticflickr.com/179/404202272_e124e56ad3_z.jpg'
   };
 
-  $scope.recentEvents = $rootScope.pastEvents
+  $scope.myEvents = RecentEvents.events;
   
 
   $scope.events = function(){
@@ -128,19 +53,41 @@ angular.module('doit.controllers', [])
   
 })
 
-.controller('ServedCtrl', function($scope, $state, ToDoLoader, $ionicModal, Count, RecentEvents, $rootScope, serverRequest){
-  $scope.toDo = ToDoLoader.events;
+.controller('ServedCtrl', function($scope, $state, ToDoLoader, $ionicModal, RecentEvents, MyEvents){
+  $scope.toDo = MyEvents.events['chill']['jazz']['events'];
   $scope.recentEvents = RecentEvents.events;
-  $scope.rootScope.events;
-  var count = Count.count;
-  // $scope.event;
-  
-  $scope.goToDash = function(){
+  $scope.events = ToDoLoader.getToDoSpec();
+  $scope.activityList = function(){
     $state.go('tab.dash');
   };
+})
+
+
+.controller('ActivityListCtrl', function($scope, $state, ToDoLoader, $ionicModal, RecentEvents, MyEvents, $stateParams){
+  $scope.activity = MyEvents.events['chill']['jazz']['events'][$stateParams.id];
+  $scope.served = function(){
+    console.log($stateParams);
+    $state.go('served-events');
+  };
+
+  $scope.doit = function(){
+    $scope.activity.description.date = "9pm-12am August 23rd";
+    RecentEvents.events.unshift($scope.activity);
+    // $state.go('profile');
+  }
+})
+
+
+.controller('ActivitiesCtrl', function($scope, $stateParams, $state, ToDoLoader, RecentEvents, $ionicModal){
+  $scope.max = 5;
+  $scope.rate = 3;
+   $scope.profile = function(){
+    $state.go('tab.profile');
+  };
+  $scope.activity = RecentEvents.events[$stateParams.id];
 
   $ionicModal.fromTemplateUrl('../templates/modal.html', {
-  
+      
     animation: 'slide-in-up',
     scope: $scope,
 
@@ -148,42 +95,25 @@ angular.module('doit.controllers', [])
     $scope.modal = modal;
     
     $scope.createEvent = function(){
-      serverRequest.post('user/addActivity', {
-      userID: 1,
-      tokenID: 2,
-      activityID: 3,
-      startDateTime: new Date(),
-      duration: 4,
-      placeID: null,
-      })
-      .success(function(data, status){
-        console.log('activity has been added');
-        $state.go('tab.profile');
-      });
-
-
       $scope.modal.hide();
     };
-
-
   });
 
-
-  $scope.openModal = function(index){
-    $scope.event = ToDoLoader.events[index];
+  $scope.openModal = function(){
     $scope.modal.show();
   };
-
 })
 
-.controller('ActivitiesCtrl', function($scope, $stateParams, $state, ToDoLoader, RecentEvents){
-  $scope.max = 5;
-   $scope.profile = function(){
-    $state.go('tab.profile');
-  };
-  $scope.activity = RecentEvents.events[$stateParams.id];
-})
 
-.controller('MapsCtrl', function(){
 
-})
+
+// .controller('MapsCtrl', function($scope){
+//   $scope.map = {
+//     center: {
+//       latitude: 45,
+//       longitude: -73
+//     },
+
+//     zoom: 8
+//   };
+// })

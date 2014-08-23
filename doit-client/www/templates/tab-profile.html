@@ -1,40 +1,26 @@
 <ion-view title="Profile" hide-nav-bar="true">
-  <ion-content ng-style="{'background':'#643551', 'padding': '15px'}">
-    <div id="container">
-      <div id="profileSandbox">
-        <img ng-src="http://hrhq.squarespace.com/assets/images/heroes/dougcalhoun.jpg" class="avatar">
-        <span class="profileDescriptionBox">
-          {{user.name}}
-          </br>
-          Location: {{user.location}}
-          </br>
-          Personality: {{user.personality}}
-          </br>
-        </span>
+  <ion-content>
+      <div class="item item-thumbnail-left">
+        <img src="{{user.img}}" ng-style="{'height': '100px', 'width': '100px'}">
+        <h3>{{user.name}}</h3>
+        <p>Location: {{user.location}}</p>
+        <button nav-clear class="button button button loginFacebook" ng-style="{'float': 'right'}">My Stats</button>
       </div>
-
-      <div class="friendSandbox">
-        <h4 ng-style="{'font-family': 'Copperplate', 'color': 'white'}">My Activities<h4>
-      </div>
-      <ion-scroll direction="y" >
-        <div class="list">
-            <a class="item item" ng-class="{even: $even, odd: $odd}"
-            ng-repeat="todos in myEvents" ui-sref="activities({id: $index})" ng-style="{'padding': '0'}">
-            <span ng-style="{'float': 'left'}">
-            <img src="{{todos.img}}" ng-style="{'height': '70px', 'width': '70px', 'display': 'inline'}">
-            </span>
-            <span ng-style="{'float': 'right', 'padding': '5px'}">
-              <p>{{todos.title}}</p>
-              <i class="icon ion-star"></i>
-              <i class="icon ion-star"></i>
-              <i class="icon ion-star"></i>
-              <i class="ion-ios7-star-outline"></i>
-              <i class="ion-ios7-star-outline"></i>
-              <!-- <rating ng-model="rate" max="max"></rating> -->
-            </span>
+<!--       <ion-scroll direction="y" > -->
+        <div class="list" ng-style="{'padding-top': '10px'}">
+          <div class="velocity-transition-slideUpIn" data-velocity-opts="{stagger: 100}" ng-repeat="todos in myEvents" ui-sref="activities({id: $index})">
+            <a class="item item-avatar">
+            <img src="{{todos.img}}">
+            <h2>{{todos.title}}</h2><p>{{todos.description.date}}</p>
+            <i class="icon ion-star"></i>
+            <i class="icon ion-star"></i>
+            <i class="icon ion-star"></i>
+            <i class="ion-ios7-star-outline"></i>
+            <i class="ion-ios7-star-outline"></i> 
             </a> 
+            <div>
         </div>
-      </ion-scroll>
+<!--       </ion-scroll> -->
 
   </ion-content>
 </ion-view>
