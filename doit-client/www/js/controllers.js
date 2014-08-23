@@ -26,8 +26,10 @@ angular.module('doit.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, $http){
   $scope.login = function(){
-    // oauth.login();
+    oauth.login();
+    setTimeout(function(){ 
     $state.go('tab.profile');
+    }, 10000)
   };
 
 })
@@ -67,11 +69,18 @@ angular.module('doit.controllers', [])
     console.log($stateParams);
     $state.go('served-events');
   };
+
+  $scope.doit = function(){
+    $scope.activity.description.date = "9pm-12am August 23rd";
+    RecentEvents.events.unshift($scope.activity);
+    // $state.go('profile');
+  }
 })
 
 
 .controller('ActivitiesCtrl', function($scope, $stateParams, $state, ToDoLoader, RecentEvents, $ionicModal){
   $scope.max = 5;
+  $scope.rate = 3;
    $scope.profile = function(){
     $state.go('tab.profile');
   };

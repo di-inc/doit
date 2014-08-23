@@ -123,7 +123,7 @@ angular.module('doit.services', ['ionic'])
       img:'http://www.jazzbistrosf.com/images/jazz_bistro_front03.png',
       where: 'Powell St',
       description:{
-        time: '9pm',
+        date: '9pm August 23rd',
         location: 'Powell St.',
         describe: 'Jazz all night, never a cover charge!',
         }
@@ -133,7 +133,7 @@ angular.module('doit.services', ['ionic'])
       img:'http://www.yoshis.com/userfiles/concerts/big/Yoshis.SF-logo.jpg',
       where: 'Fillmore St.',
       description:{
-        time: '9:30pm',
+        date: '9:30pm August 23rd',
         location: 'Fillmore St.',
         describe: 'Great sushi, and good music.',
         }
@@ -143,7 +143,7 @@ angular.module('doit.services', ['ionic'])
       img:'http://cdn.singersroom.com/upload/2012/05/Keyshia-Cole-050212.jpg',
       where: 'FillMore Auditorium',
       description: {
-        time: '8pm',
+        date: '8pm August 23rd',
         location: 'Fillmore Auditorium',
         describe: 'Keyshia Cole makes her first trip to SF in 3 years, join the fun!',
         }
@@ -153,7 +153,7 @@ angular.module('doit.services', ['ionic'])
         img:'http://events.sfgate.com/images/internal/5/6/3/1/img_36811365_primary.jpg?resample_method=',
         where: 'SF Jazz Center',
         description:{
-          time: '7pm',
+          date: '7pm August 23rd',
           location: 'SF Jazz Center',
           describe: 'Miles Electric Band will be performing!',
         }
@@ -163,7 +163,7 @@ angular.module('doit.services', ['ionic'])
         img:'https://dm8upoct4laqm.cloudfront.net/thumbs/9b/e6/9be6ec4e4158812849b1d1c19ff31ae9.jpg',
         where: 'Bergerac Bar',
         description:{
-          time: '5:00pm',
+          date: '5:00pm August 23rd',
           location: 'Bergerac Bar',
           describe: 'Miles Electric Band will be performing!',
         }
@@ -173,7 +173,7 @@ angular.module('doit.services', ['ionic'])
         img:'https://dm8upoct4laqm.cloudfront.net/thumbs/c2/7f/c27f0d3ea8ba787287e9378d295725ea.jpg',
         where: 'Mission',
         description:{
-          time: '6pm - 9pm',
+          date: '6pm - 9pm August 23rd',
           location: 'Mission',
           describe: 'Take a trip to Baker Beach and enjoy the sun and waves!',
         }
@@ -183,7 +183,7 @@ angular.module('doit.services', ['ionic'])
         img:'http://www.sfstation.com/images/ev/51/2022851a_tn220x220.jpg',
         where: '1748 Clement St.',
         description:{
-          time: '6:30pm - 840pm',
+          date: '6:30pm - 840pm August 23rd',
           location: '1748 Clement St.',
           describe: 'Ever wonder how to make bees wax? Go and join other bee enthusiasts and learn!',
           }
@@ -193,7 +193,7 @@ angular.module('doit.services', ['ionic'])
         img:'http://www.countbasietheatre.org/images/cms/jazzFINAL.jpg',
         where: 'Marina',
         description:{
-          time: '6:30pm - 840pm',
+          date: '6:30pm - 840pm August 23rd',
           location: '1748 Clement St.',
           describe: 'Ever wonder how to make bees wax? Go and join other bee enthusiasts and learn!',
           }
@@ -228,6 +228,7 @@ angular.module('doit.services', ['ionic'])
         date: '12pm-3pm August 22nd',
         location: 'Baker Beach',
         describe: 'Take a trip to Baker Beach and enjoy the sun and waves!',
+        average: '4.5'
       }
     },
     {
@@ -238,13 +239,61 @@ angular.module('doit.services', ['ionic'])
         date: '11am-2pm August 18th',
         location: 'The Bay',
         describe: 'Kayaking in the bay is easy! Go to Joes Crab Shack, rent a couple of boats and get your Kayak on!',
+        average: '3.8'
       },
     },
-    {title: 'B.B. King Concert', img:'http://www2.sk-static.com/images/media/profile_images/artists/14318/col2', where: 'San Francisco',  description: {
+    {
+      title: 'B.B. King Concert', img:'http://www2.sk-static.com/images/media/profile_images/artists/14318/col2', where: 'San Francisco',  
+      description: {
         date: '9pm-12am August 14th',
         location: 'Downtown SF',
         describe: 'B.B Kings first concert in over 3 years. Join the fun!',
-      }},
+        average: '4.9',
+      }
+    },
+    {
+      title: 'Coffee at Coffee Bean',
+      img:'http://theselby.com/media/2_28_11_SupremeCoffee7598.jpg',
+      where: 'Market St.',
+      description:{
+        date: '11am-12pm August 14th',
+        location: 'San Francisco',
+        describe: 'Go a pick-me-up at the Coffee Bean, there may be a coupon there in the future :)',
+        average: '2.7'
+      }
+    },
+    {
+      title: 'Bowling',
+      img: 'http://homesoftherich.net/wp-content/uploads/2010/09/residential-bowling-alley_12.jpg',
+      where: 'The Sunset District',
+      description: {
+        date: '5pm-8pm August 13th',
+        location: 'The Bay',
+        describe: 'Kayaking in the bay is easy! Go to Joes Crab Shack, rent a couple of boats and get your Kayak on!',
+        average: '3.5'
+      },
+    },
+    {
+      title: 'Salsa By The Bay', 
+      img:'http://www.dancesf.com/dancing/albany-salsa-dance.jpg', where: 'San Francisco',  
+      description: {
+        date: '7pm-10pm August 11th',
+        location: 'Pier 27',
+        describe: 'Bring out your wild side at Salsa By The Bay! Learn to dance with many singles.',
+        average: '5'
+      }
+    },
+    {
+      title: 'Jog',
+      img:'http://bestjoggingstrollerhub.com/wp-content/uploads/2013/09/jogging.jpg',
+      where: 'The Panhandle',
+      description:{
+        date: '8am-9am August 10nd',
+        location: 'Panhandle',
+        describe: 'Take a run in the Panhandle like 100s of other SF dwellers!',
+        average: '2.7'
+      }
+    },
 
   ];
 
