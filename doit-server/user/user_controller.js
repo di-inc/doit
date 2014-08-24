@@ -12,6 +12,29 @@ module.exports = exports = {
     //   if
     // }
   },
+  getEventsFromActivityID : function(req,res){
+    dbOps.getEventsFromActivityID(req.body.locationID, req.body.activityID, req.body.dateTimeToDo,
+                                  function(err,rows){
+      if(err){
+        console.log(err);
+        res.status(500).send(err);
+      }
+      else{
+        res.status(200).send(rows);
+      }
+    })
+  },
+  getAllActivities : function(req, res){
+    dbOps.getAllActivities(function(err,rows){
+      if(err){
+        console.log(err);
+        res.status(500).send(err);
+      }
+      else{
+        res.status(200).send(rows);
+      }
+    });
+  },
   getCurrentActivities : function(req, res){
     //do check on request to make sure its good
 

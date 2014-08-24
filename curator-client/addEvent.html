@@ -1,0 +1,198 @@
+<html>
+<head>
+<script src='bower_components/jquery/dist/jquery.min.js'></script>
+<link rel='stylesheet' type='text/css' href='bower_components/datetimepicker/jquery.datetimepicker.css'>
+<script src='bower_components/datetimepicker/jquery.datetimepicker.js'></script>
+<script>
+  var serverURL = 'http://do-it-server.cloudapp.net';
+  function submitEvent(){
+    var toSubmit = {};
+    toSubmit.eventName = $('#name').val();
+    toSubmit.description = $('#description').val();
+    toSubmit.imgLink = $('#imgLink').val();
+    var exit = false;
+    if (toSubmit.eventName === ''){
+      $('#nameNotification').css('display','inline');
+      exit = true;
+    }
+    if (toSubmit.description === ''){
+      $('#descriptionNotification').css('display','inline');
+      exit = true;
+    }
+    if (toSubmit.imgLink === ''){
+      $('#imgNotification').css('display','inline');
+      exit = true;
+    }
+    if (exit){
+      return;
+    }
+
+// activityName, description, uniquePlace, 
+//                          placeCategoryID, placeID, imgLink, status, 
+//                          participantsNeeded, occursOnce, startDateTime, 
+//                          endDateTime, openingTime, closingTime, minDuration, 
+//                          maxDuration, typeIDs
+    toSubmit.placeID = $('#placeID').val() || null;
+    toSubmit.occursOnce = $('#occursOnce').val() || false;
+    toSubmit.uniquePlace = false; //later we will destinguish between anywhere activities...
+
+    toSubmit.status = 'current';
+    toSubmit.minDuration = $('#minDuration').val();
+    toSubmit.maxDuration = $('#maxDuration').val();
+    //should display error for this later for now do this...
+    if (toSubmit.minDuration > toSubmit.maxDuration){
+      toSubmit.maxDuration = toSubmit.minDuration;
+    }
+    toSubmit.typeIDs = $('#typeIDs').val();
+    toSubmit.placeCategoryID = $('#placeCategoryID').val() || null;
+    if ($('#hasStartDateTime').prop('checked') === true){
+      toSubmit.startDateTime = $('#startDateTime').val();
+    } else{
+      toSubmit.startDateTime = null;
+    }
+    if ($('#hasEndDateTime').prop('checked') === true){
+      toSubmit.endDateTime = $('#endDateTime').val();
+    } else{
+      toSubmit.endDateTime = null;
+    }
+    if ($('#hasOpenTime').prop('checked') === true){
+      toSubmit.openingTime = $('#openTime').val();
+    } else{
+      toSubmit.openingTime = null;
+    }
+    if ($('#hasCloseTime').prop('checked') === true){
+      toSubmit.closingTime = $('#closeTime').val();
+    } else{
+      toSubmit.closingTime = null;
+    }
+          console.log(JSON.stringify(toSubmit));
+
+    $.ajax({
+      type: 'POST',
+      url: serverURL + '/curator/addEvent',
+      data: JSON.stringify(toSubmit), 
+      contentType : 'application/json',
+      success : function(data){
+        console.log('foo' + JSON.stringify(data));
+        $('#name').val('');
+        $('#imgLink').val('');
+        $('#description').val('');
+      },
+      error : function(data){
+        console.log('oo');
+        console.log(data);
+      }
+    });
+  };
+  function getPlaces(callback){
+    $.ajax({
+      type: 'GET',
+      url: serverURL + '/curator/places',
+      success: function(data){
+        for (var i = 0; i < data.length; i++){
+          if (data[i].placeName !== ''){
+            console.log(data[i].placeName);
+            $('#placeID').append('<option value="' + data[i].placeID + '">' + 
+                data[i].placeName + '</option>');
+          }
+        }
+      },
+    });
+  };
+  function getPlaceCategories(callback){
+    $.ajax({
+      type: 'GET',
+      url: serverURL + '/curator/placeCategories',
+      success: function(data){
+        for (var i = 0l i < data.length; i++){
+          if (data[i].placeName !== ''){
+            $('#placeCategoryID').append('<option value="' + data[i].placeCategoryID + '">' +
+                data[i].placeCategory + '</option>');
+          }
+        }
+      },
+    })
+  }
+</script>
+</head>
+<body>
+Name: <input id='name' type='text' maxlength="200" style:'white-space:nowrap;'> <span id='nameNotification' style='display:none; color:red; white-space:nowrap;'> Required!</span><br>
+<!-- eventually this form will grab all locations in db and have curator pick from them... -->
+Place: <select id='placeID'>
+       <option value=''>Any Place</option>
+       </select>
+
+<br>
+Place Category <select id='placeCategoryID'>
+               <option value=''>No Category</option>
+               </select><br>
+Description: <input id='description' type='text' maxlength='1000'><span id='descriptionNotification' style='display:none; color:red; white-space:nowrap;'> Required!</span><br>
+Image Link: <input id='imgLink' type='text' maxlength="400"><span id='imgNotification' style='display:none; color:red; white-space:nowrap;'> Required!</span><br>
+Occurs Once: <select id='occursOnce'>
+              <option value='0'>False</option>
+              <option value='1'>True</option>
+              </select><br>
+Participants Needed <select id='participants'>
+                    <option value='any'>any</option>
+                    <option value='one'>one</option>
+                    <option value='duo'>duo</option>
+                    <option value='group'>group</option>
+                    </select><br>
+Has Start Date Time? (checked = yes) <input type='checkbox' id='hasStartDateTime'>
+Start DateTime <input id='startDateTime' type='text'><br>
+Has End Date Time? (checked = yes) <input type='checkbox' id='hasEndDateTime'>
+End DateTime <input id='endDateTime' type='text'><br>
+<script>
+  jQuery('#startDateTime').datetimepicker();
+  jQuery('#endDateTime').datetimepicker();
+</script>
+
+Has Opening Time (checked = yes) <input type='checkbox' id='hasOpenTime'>
+Open Time <input id='openTime' type='text'><br>
+Has Closing TIme (checked = yes) <input type='checkbox' id='hasCloseTime'>
+Close Time <input id='closeTime' type='text'><br>
+<script>
+  jQuery('#openTime').datetimepicker({
+    datepicker:false,
+    format:'H:i'
+  });
+  jQuery('#closeTime').datetimepicker({
+    datepicker:false,
+    format:'H:i'
+  });
+</script>
+Minumum Duration <select id='minDuration'>
+                 <option value='1'>5 minutes</option>
+                 <option value='2'>15 minutes'</option>
+                 <option value='3'>30 minutes</option>
+                 <option value='4'>1 hour</option>
+                 <option value='5'>1 - 3 hours</option>
+                 <option value='6'>all day</option>
+                 <option value='7'>multiple days</option>
+                 </select><br>
+Maximum Duration <select id='maxDuration'>
+                 <option value='1'>5 minutes</option>
+                 <option value='2'>15 minutes</option>
+                 <option value='3'>30 minutes</option>
+                 <option value='4'>1 hour</option>
+                 <option value='5'>1 - 3 hours</option>
+                 <option value='6'>all day</option>
+                 <option value='7'>multiple days</option>
+                 </select><br>
+<!-- possible todo enter the types getting from mysql server... -->
+Activity Type: <select multiple id='typeIDs'>
+                 <option value='1'>adventurous</option>
+                 <option value='2'>rocking</option>
+                 <option value='3'>intense</option>
+                 <option value='4'>chill</option>
+                 <option value='5'>fun</option>
+                 <option value='6'>classic</option>
+                </select><br>
+
+<button onClick='submitActivity()'>Submit</button>
+<script>
+getPlaces();
+getPlaceCategories();
+</script>
+</body>
+</html>

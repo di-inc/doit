@@ -1,0 +1,52 @@
+<html>
+<head>
+<script src='bower_components/jquery/dist/jquery.min.js'></script>
+<script>
+  function submitPlace(){
+    var toSubmit = {};
+    toSubmit.placeName = $('#name').val();
+    if (toSubmit.placeName === ''){
+      $('#nameNotification').css('display','inline');
+      return;
+    }
+    toSubmit.locationID = $('#location').val();
+    toSubmit.address = $('#address').val() || null;
+    toSubmit.description = $('#description').val() || null;
+    toSubmit.imgLink = $('#imagelink').val();
+    $.ajax({
+      type: 'POST',
+      url: 'http://do-it-server.cloudapp.net/curator/addPlace', 
+      data: JSON.stringify(toSubmit), 
+      contentType: 'application/json',
+      success: function(data){
+        console.log('foo');
+        $('#name').val('');
+        $('#address').val('');
+        $('#description').val('');
+        $('#imagelink').val('');
+      },
+      error : function(err){
+        console.log('foooooo');
+      },
+      complete : function(data){
+        console.log('baz');
+      }
+    });
+  }
+</script>
+</head>
+<body>
+Name: <input id='name' type='text' maxlength="200" style:'white-space:nowrap;'> <span id='nameNotification' style='display:none; color:red; white-space:nowrap;'> Required!</span><br>
+<!-- eventually this form will grab all locations in db and have curator pick from them... -->
+Location: <select id='location'>
+          <option value='1'>Anywhere</option>
+          <option value='2'>San Francisco Bay</option>
+          </select>
+<br>
+Address: <input id='address' type='text' maxlength="300"><br>
+Description: <input id='description' type='text' maxlength='1000'>
+Image Link: <input id='imagelink' type='text' maxlength='400'>
+
+<button onClick='submitPlace()'>Submit</button>
+</body>
+</html>
