@@ -29,7 +29,7 @@ angular.module('doit.controllers', [])
     oauth.login();
     setTimeout(function(){ 
     $state.go('tab.profile');
-    }, 10000)
+    }, 8000);
   };
 
 })
@@ -73,7 +73,7 @@ angular.module('doit.controllers', [])
   $scope.doit = function(){
     $scope.activity.description.date = "9pm-12am August 23rd";
     RecentEvents.events.unshift($scope.activity);
-    // $state.go('profile');
+    $state.go('tab.profile');
   }
 })
 
